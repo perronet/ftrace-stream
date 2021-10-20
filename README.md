@@ -19,4 +19,9 @@ The tool depends on the following libraries:
 * [libtraceevent](https://www.trace-cmd.org/Documentation/libtraceevent/libtraceevent.html)
 * [libtracecmd](https://manpages.debian.org/experimental/trace-cmd/libtracecmd.3.en.html)
 
-TODO Create an install script for these libraries
+If you don't have them, run the install script before `cargo build`:
+
+```
+cd src/binary_parser/lib
+sudo ./install.sh
+```
