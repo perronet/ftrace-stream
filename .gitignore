@@ -13,3 +13,6 @@ Cargo.lock
 # Added by cargo
 
 /target
+
+# Output dir
+src/binary_parser/lib/build_output

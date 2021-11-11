@@ -1,5 +1,19 @@
 #include "stream.h"
 
+enum {
+	TRACECMD_RECORD_NOSPLICE	= (1 << 0),	/* Use read instead of splice */
+	TRACECMD_RECORD_SNAPSHOT	= (1 << 1),	/* Extract from snapshot */
+	TRACECMD_RECORD_BLOCK_SPLICE	= (1 << 2),	/* Block on splice write */
+	TRACECMD_RECORD_NOBRASS		= (1 << 3),	/* Splice directly without a brass pipe */
+	TRACECMD_RECORD_POLL		= (1 << 4),	/* Use O_NONBLOCK, poll trace buffers */
+};
+
+struct tracecmd_recorder;
+void tracecmd_stop_recording(struct tracecmd_recorder *recorder);
+struct tracecmd_recorder *tracecmd_create_buffer_recorder_fd(int fd, int cpu, unsigned flags, const char *buffer);
+int tracecmd_start_recording(struct tracecmd_recorder *recorder, unsigned long sleep);
+void tracecmd_free_recorder(struct tracecmd_recorder *recorder);
+
 // Used by each child recorder after forking. Each child has its own "recorder" instance
 static struct tracecmd_recorder *recorder;
 static int sleep_time = 1000;

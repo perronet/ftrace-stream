@@ -1,5 +1,26 @@
 #include "stream.h"
 
+enum tracecmd_file_states {
+	TRACECMD_FILE_INIT = 1,
+	TRACECMD_FILE_HEADERS,
+	TRACECMD_FILE_FTRACE_EVENTS,
+	TRACECMD_FILE_ALL_EVENTS,
+	TRACECMD_FILE_KALLSYMS,
+	TRACECMD_FILE_PRINTK,
+	TRACECMD_FILE_CMD_LINES,
+	TRACECMD_FILE_CPU_COUNT,
+	TRACECMD_FILE_OPTIONS,
+	TRACECMD_FILE_CPU_LATENCY,
+	TRACECMD_FILE_CPU_FLYRECORD,
+};
+
+// libtracecmd private
+struct tracecmd_output *tracecmd_create_init_fd(int fd);
+void tracecmd_output_free(struct tracecmd_output *handle);
+struct tracecmd_input *tracecmd_alloc_fd(int fd, int flags);
+int tracecmd_read_headers(struct tracecmd_input *handle, enum tracecmd_file_states state);
+int tracecmd_make_pipe(struct tracecmd_input *handle, int cpu, int fd, int cpus);
+
 // TODO rewrite this without these horrible static variables and gotos
 struct tracecmd_input *init_stream(int read_fd, int cpu, int cpu_cnt) {
 	struct tracecmd_output *trace_output;

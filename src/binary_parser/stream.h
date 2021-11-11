@@ -26,6 +26,13 @@
 #define SWITCH_ID 314
 #define EXIT_ID 311
 
+// TODO this is machine-dependent. Read these values from tracefs instead.
+// Raspi
+// #define WAKEUP_ID 62
+// #define WAKEUP_NEW_ID 61
+// #define SWITCH_ID 60
+// #define EXIT_ID 57
+
 enum event_type {
 	WAKEUP,
 	SWITCH,
